@@ -1,0 +1,47 @@
+{
+  "name": "solstis86/complyadvantagelaravel",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "james.fairbrother",
+
+      "email": "james@mvdigital.co"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SolStis86\\ComplyAdvantage\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SolStis86\\ComplyAdvantage\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "illuminate/http": "^7.13",
+    "illuminate/database": "^7.13",
+    "illuminate/support": "^7.13",
+    "guzzlehttp/guzzle": "^6.3.1"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.4",
+    "phpunit/phpunit": "^9.1",
+    "orchestra/testbench": "^5.3"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "SolStis86\\ComplyAdvantage\\ComplyAdvantageServiceProvider"
+      ],
+      "aliases": {
+
+      }
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit --colors=always"
+  }
+}
