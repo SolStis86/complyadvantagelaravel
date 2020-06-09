@@ -1,0 +1,100 @@
+{
+    "content":{
+        "data":{
+            "id":46,
+            "ref":"1495711341-Tu51KL9s",
+            "searcher_id":1,
+            "assignee_id":1,
+            "search_profile":{
+                "name":"My USA Profile 1",
+                "slug":"my-usa-profile-1"
+            },
+            "filters":{
+                "entity_type":"person",
+                "types":[
+                    "sanction",
+                    "warning"
+                ],
+                "birth_year":"1924",
+                "passport":"AD10095",
+                "exact_match":false,
+                "fuzziness":0.6
+            },
+            "match_status":"potential_match",
+            "risk_level":"unknown",
+            "search_term":"Robert Mugabe",
+            "total_hits":1,
+            "updated_at":"2015-06-18 16:52:42",
+            "created_at":"2015-06-18 16:52:42",
+            "tags":{
+                "name":"value"
+            },
+            "hits":[
+                {
+                    "doc":{
+                        "aka":[
+
+                        ],
+                        "associates":[
+                            {
+                                "name":"Grace Mugabe",
+                                "association":"Spouse"
+                            }
+                        ],
+                        "entity_type":"person",
+                        "fields":[
+                            {
+                                "locale":"en",
+                                "name":"Justification",
+                                "source":"swiss-seco-list",
+                                "value":"Head of Government and responsible for activities that seriously undermine democracy, respect for human rights and the rule of law."
+                            },
+                            {
+                                "name":"Other Information",
+                                "source":"swiss-seco-list",
+                                "value":"President."
+                            },
+                            {
+                                "name":"Date of Birth",
+                                "source":"swiss-seco-list",
+                                "tag":"date_of_birth",
+                                "value":"1924"
+                            }
+                        ],
+                        "first_name":"Robert",
+                        "id":"RU4326M8GFUAHMF",
+                        "last_name":"Mugabe",
+                        "last_updated_utc":"2015-06-16T01:11:14Z",
+                        "middle_names":"Gabriel",
+                        "media":[
+                            {
+                                "date":"2018-09-17T00:00:00Z",
+                                "snippet":"- Mugabe's son-in-law under probe PRESIDENT Emmerson Mnangagwa's anti-corruption unit has reportedly opened investigations into former President Robert Mugabe's son-in-law, Simba Chikore's involvement in the botched ZimAirways deal, NewsDay can reveal. BY RICHARD CHIDZA Highly-placed sources told NewsDay last week that Chikore, married to Mugabe's daughter, Bona, is the subject of an investigation over his involvement in the purchase of aircraft under a ZimAirways deal.",
+                                "title":"Mugabe's son-in-law under probe – The Zimbabwe Mail",
+                                "url":"https://www.thezimbabwemail.com/law-crime/mugabes-son-in-law-under-probe/"
+                            }
+                        ],
+                        "name":"Mugabe Robert Gabriel",
+                        "sources":[
+                            "swiss-seco-list"
+                        ],
+                        "types":[
+                            "sanction"
+                        ]
+                    },
+                    "is_whitelisted":false,
+                    "match_types":[
+                        "name_exact",
+                        "year_of_birth"
+                    ],
+                    "match_types_details":[
+
+                    ],
+                    "score":3.511
+                }
+            ],
+            "share_url":"http://app.complyadvantage.com/public/search/1496748100-l9qHqbVF/64a6114f299b"
+        }
+    },
+    "status":"success"
+}
