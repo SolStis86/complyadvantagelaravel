@@ -21,7 +21,7 @@ class CreateCASearchesTables extends Migration
         Schema::create($tableName, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->nullableMorphs('model');
-            $table->json('response_data');
+            $table->json('data');
             $table->timestamps();
         });
 
