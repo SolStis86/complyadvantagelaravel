@@ -21,6 +21,11 @@ class ApiClient
             ]);
     }
 
+    /**
+     * @param SearchRequest $request
+     * @return array
+     * @throws ComplyAdvantageApiException
+     */
     public function createSearch(SearchRequest $request)
     {
         $response = $this->http->post('searches', $request->toArray());
