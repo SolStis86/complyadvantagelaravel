@@ -12,11 +12,21 @@ use SolStis86\ComplyAdvantage\Tests\TestCase;
 
 class ApiClientTest extends TestCase
 {
+    public $runMigrations = true;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        Http::fake();
+        Http::fake(function ($request) {
+            $dummyResponse = json_decode(file_get_contents(__DIR__.'/../stubs/example-response.json'), true);
+
+            return Http::response(
+                $dummyResponse,
+                200,
+                []
+            );
+        });
     }
 
     public function testItCallsTheApiWithCorrectAuthorizationHeader()
@@ -49,10 +59,11 @@ class ApiClientTest extends TestCase
         $api->createSearch($searchRequest);
 
         Http::assertSent(function ($request) {
-            print_r($request);
             return $request['client_ref'] === 'client ref'
                 && $request['fuzziness'] === 0.2
-                && $request['filters'] === [];
+                && $request['filters'] === [
+                    'types' => [SearchFilters::TYPE_ADVERSE_MEDIA_GENERAL],
+                ];
         });
     }
 }
