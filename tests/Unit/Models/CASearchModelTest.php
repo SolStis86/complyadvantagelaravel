@@ -49,6 +49,8 @@ class CASearchModelTest extends TestCase
 
         $model = CASearch::createFromApiResponseData($response);
 
+        $this->assertInstanceOf(ApiClient\ResponseData::class, $model->data);
+
         $this->assertDatabaseHas(
             config('complyadvantage.database.searches_table_name'),
             ['data' => $model->data->__toString()]
