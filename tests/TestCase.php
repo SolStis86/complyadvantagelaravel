@@ -43,4 +43,16 @@ abstract class TestCase extends OrchestraTestCase
     {
         return [ComplyAdvantageServiceProvider::class];
     }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    protected function getStubAsArray(string $name)
+    {
+        return json_decode(
+            file_get_contents(__DIR__.'/stubs/'.$name.'.json'),
+            true
+        );
+    }
 }

@@ -15,7 +15,7 @@ use SolStis86\ComplyAdvantage\Contracts\SearchParams;
  *
  * @link https://docs.complyadvantage.com/api-docs/#create-searches-post
  */
-class SearchRequest
+class CreateSearchRequest
     extends ParameterBag
     implements SearchParams, Arrayable
 {

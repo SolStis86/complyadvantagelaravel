@@ -1,5 +1,7 @@
 <?php
 
+use SolStis86\ComplyAdvantage\Controllers\WebhookController;
+
 return [
     'api_key' => env('CA_API_KEY'),
 
@@ -8,4 +10,9 @@ return [
     ],
 
     'allowed_entity_types' => [],
+
+    'webhooks' => [
+        'uri' => 'ca/webhooks',
+        'controller' => WebhookController::class,
+    ],
 ];

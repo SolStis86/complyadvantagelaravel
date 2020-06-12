@@ -5,14 +5,19 @@ namespace SolStis86\ComplyAdvantage;
 
 
 use Closure;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use SolStis86\ComplyAdvantage\ApiClient\Requests\GetSearchesRequest;
 use SolStis86\ComplyAdvantage\ApiClient\ResponseData;
-use SolStis86\ComplyAdvantage\ApiClient\SearchRequest;
+use SolStis86\ComplyAdvantage\ApiClient\CreateSearchRequest;
 use SolStis86\ComplyAdvantage\Exceptions\ComplyAdvantageApiException;
 
 class ApiClient
 {
+    /**
+     * @var PendingRequest
+     */
     protected $http;
 
     public function __construct()
@@ -24,11 +29,45 @@ class ApiClient
     }
 
     /**
-     * @param SearchRequest $request
+     * Retrieve previous searches on your account
+     *
+     * @link https://docs.complyadvantage.com/api-docs/#get-searches
+     * @param GetSearchesRequest $request
      * @return array
      * @throws ComplyAdvantageApiException
      */
-    public function createSearch(SearchRequest $request)
+    public function getSearches(GetSearchesRequest $request)
+    {
+        return $this->handleResponse(
+            $this->http->get('searches', $request->toArray())
+        );
+    }
+
+    /**
+     * Retrieve a previously created search
+     *
+     * @link https://docs.complyadvantage.com/api-docs/#get-searches-id
+     * @param int $id
+     * @param bool $withSearchUrl
+     * @return array
+     * @throws ComplyAdvantageApiException
+     */
+    public function getSearch(int $id, $withSearchUrl = false)
+    {
+        return $this->handleResponse(
+            $this->http->get("searches/$id", ['share_url' => (int) $withSearchUrl])
+        );
+    }
+
+    /**
+     * Create a new search by POSTing search terms, parameters and filters
+     *
+     * @link https://docs.complyadvantage.com/api-docs/#create-searches
+     * @param CreateSearchRequest $request
+     * @return array
+     * @throws ComplyAdvantageApiException
+     */
+    public function createSearch(CreateSearchRequest $request)
     {
         return $this->handleResponse(
             $this->http->post('searches', $request->toArray())
@@ -36,15 +75,17 @@ class ApiClient
     }
 
     /**
-     * @param ResponseData $data
-     * @param $shouldMonitor
+     * Set monitoring on or off for
+     *
+     * @param int $searchId
+     * @param bool $shouldMonitor
      * @return array
      * @throws ComplyAdvantageApiException
      */
-    public function setMonitorForSearch(ResponseData $data, $shouldMonitor)
+    public function setMonitorForSearch(int $searchId, bool $shouldMonitor)
     {
         return $this->handleResponse(
-            $this->http->patch($data->uri('monitors'), ['is_monitored' => $shouldMonitor])
+            $this->http->patch("searches/$searchId", ['is_monitored' => $shouldMonitor])
         );
     }
 
@@ -53,7 +94,7 @@ class ApiClient
      * @return array
      * @throws ComplyAdvantageApiException
      */
-    public function handleResponse(Response $response)
+    public function handleResponse(Response $response): array
     {
         if ($response->successful()) {
             return $this->handleSuccess($response);
@@ -66,7 +107,7 @@ class ApiClient
      * @param Response $response
      * @return array
      */
-    public function handleSuccess(Response $response)
+    public function handleSuccess(Response $response): array
     {
         return $response->json();
     }

@@ -25,12 +25,12 @@ class ComplyAdvantageServiceProvider extends ServiceProvider
             __DIR__.'/../config/complyadvantage.php' => config_path('complyadvantage.php'),
         ]);
 
-        $this->app->singleton('complyadvantage.apiclient', function () {
-            if ($this->app->environment('testing')) {
+        $this->app->singleton(ApiClient::class, function () {
+            return new ApiClient;
+        });
 
-            }
-
-            return new ApiClient();
+        $this->app->singleton(WebHookEventProcessor::class, function () {
+            return new WebHookEventProcessor;
         });
     }
 

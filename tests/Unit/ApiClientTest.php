@@ -4,10 +4,11 @@
 namespace SolStis86\ComplyAdvantage\Tests\Unit;
 
 
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use SolStis86\ComplyAdvantage\ApiClient;
 use SolStis86\ComplyAdvantage\ApiClient\SearchFilters;
-use SolStis86\ComplyAdvantage\ApiClient\SearchRequest;
+use SolStis86\ComplyAdvantage\ApiClient\CreateSearchRequest;
 use SolStis86\ComplyAdvantage\Tests\TestCase;
 
 class ApiClientTest extends TestCase
@@ -18,14 +19,15 @@ class ApiClientTest extends TestCase
     {
         parent::setUp();
 
-        Http::fake(function ($request) {
-            $dummyResponse = json_decode(file_get_contents(__DIR__.'/../stubs/example-response.json'), true);
-
-            return Http::response(
-                $dummyResponse,
-                200,
-                []
-            );
+        Http::fake(function (Request $request) {
+            switch ($request->method()) {
+                case 'POST':
+                    return Http::response($this->getStubAsArray('example-response'), 200, []);
+                case 'GET':
+                    return Http::response($this->getStubAsArray('get-searches'), 200, []);
+                default:
+                    return Http::response([], 404);
+            }
         });
     }
 
@@ -35,7 +37,7 @@ class ApiClientTest extends TestCase
 
         $api = new ApiClient();
 
-        $searchRequest = new SearchRequest('TEST TERM');
+        $searchRequest = new CreateSearchRequest('TEST TERM');
 
         $api->createSearch($searchRequest);
 
@@ -44,11 +46,11 @@ class ApiClientTest extends TestCase
         });
     }
 
-    public function testSearchRequestParamsAreInRequestBody()
+    public function testCreateSearchRequestParamsAreInRequestBody()
     {
         $api = new ApiClient();
 
-        $searchRequest = SearchRequest::make('TEST TERM')
+        $searchRequest = CreateSearchRequest::make('TEST TERM')
             ->setParams([
                 'client_ref' => 'client ref',
                 'fuzziness' => 0.2,

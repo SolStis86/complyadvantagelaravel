@@ -31,18 +31,22 @@ abstract class DataBag implements Stringable, Arrayable
         return data_get($this->data, $name, null);
     }
 
-    public function __toString()
+    public function __set($name, $value)
     {
-        return json_encode($this->data);
+        data_set($this->data, $name, $value);
     }
 
-    public function serialize()
+    public function __toString()
     {
-        return serialize($this->data);
+        return json_encode($this->toArray());
     }
 
     public function toArray()
     {
-        return $this->data;
+        return collect($this->data)
+            ->mapWithKeys(function ($value, $key) {
+                return [$key => $value instanceof Arrayable ? $value->toArray() : $value];
+            })
+            ->toArray();
     }
 }

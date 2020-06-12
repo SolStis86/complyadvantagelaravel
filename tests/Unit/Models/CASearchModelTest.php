@@ -7,7 +7,7 @@ namespace SolStis86\ComplyAdvantage\Tests\Unit\Models;
 use Illuminate\Support\Facades\Http;
 use SolStis86\ComplyAdvantage\ApiClient;
 use SolStis86\ComplyAdvantage\ApiClient\SearchFilters;
-use SolStis86\ComplyAdvantage\ApiClient\SearchRequest;
+use SolStis86\ComplyAdvantage\ApiClient\CreateSearchRequest;
 use SolStis86\ComplyAdvantage\Models\CASearch;
 use SolStis86\ComplyAdvantage\Tests\TestCase;
 
@@ -34,7 +34,7 @@ class CASearchModelTest extends TestCase
     {
         $api = new ApiClient();
 
-        $searchRequest = SearchRequest::make('TEST TERM')
+        $searchRequest = CreateSearchRequest::make('TEST TERM')
             ->setParams([
                 'client_ref' => 'client ref',
                 'fuzziness' => 0.2,

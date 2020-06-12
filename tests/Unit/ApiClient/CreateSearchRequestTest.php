@@ -5,14 +5,14 @@ namespace SolStis86\ComplyAdvantage\Tests\Unit\ApiClient;
 
 
 use RuntimeException;
-use SolStis86\ComplyAdvantage\ApiClient\SearchRequest;
+use SolStis86\ComplyAdvantage\ApiClient\CreateSearchRequest;
 use SolStis86\ComplyAdvantage\Tests\TestCase;
 
-class SearchRequestTest extends TestCase
+class CreateSearchRequestTest extends TestCase
 {
     public function testSearchTermIsSetOnInitialisation()
     {
-        $request = SearchRequest::make('TEST TERM');
+        $request = CreateSearchRequest::make('TEST TERM');
 
         $this->assertTrue($request->search_term === 'TEST TERM');
     }
@@ -32,7 +32,7 @@ class SearchRequestTest extends TestCase
             'country_codes' => ['s'],
         ];
 
-        $request = SearchRequest::make('TEST TERM');
+        $request = CreateSearchRequest::make('TEST TERM');
 
         foreach ($allowedParams as $key => $val) {
             $request->{$key} = $val;
@@ -48,7 +48,7 @@ class SearchRequestTest extends TestCase
 
         $this->expectExceptionMessage("Create search parameter $incorrectParamName not allowed.");
 
-        $request = SearchRequest::make('test search term');
+        $request = CreateSearchRequest::make('test search term');
 
         $request->$incorrectParamName = 'value';
     }
@@ -61,7 +61,7 @@ class SearchRequestTest extends TestCase
             'limit' => 10,
         ];
 
-        $request = SearchRequest::make('TEST TERM')
+        $request = CreateSearchRequest::make('TEST TERM')
             ->setParams($params);
 
         $this->assertIsArray($request->toArray());
@@ -79,7 +79,7 @@ class SearchRequestTest extends TestCase
 
         $this->expectException(RuntimeException::class);
 
-        SearchRequest::make('TEST TERM')
+        CreateSearchRequest::make('TEST TERM')
             ->setParams($params);
     }
 }

@@ -42,4 +42,9 @@ class CASearch extends Model
     {
         return ResponseData::make(json_decode($value, true));
     }
+
+    public function getEntitiesAttribute()
+    {
+
+    }
 }
